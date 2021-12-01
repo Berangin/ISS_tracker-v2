@@ -1,3 +1,7 @@
+//global variable
+var result;
+var resultTrimmed = [];
+var resultObj = {};
 
 //1. Fetch and display ISS Location (WheretheISS API)
 // Check time less than hours
@@ -67,26 +71,31 @@ function convertToEpoch(date){
     return epoch;
 };
 
+//convert timestamp to Human
+function convertToHuman(timestamp){
+    var myDate = new Date(timestamp*1000);
+    return myDate.toLocaleString();
+}
+
 //API request
-function get_ISS(timestamp){
+async function get_ISS(timestamp){
     
-    var obj; //to store result
-
     var url = new URL('https://api.wheretheiss.at/v1/satellites/25544/positions'),
-
     params = {timestamps:timestamp}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
     
-    fetch(url)
+    /*fetch(url)
         .then(response =>{return response.json()})
         .then(data=>console.log(data));
+    */
+    
+    let response = await fetch(url);
+    let data = response.json();
+    return data;
 };
 
-// Send data to front-end
-
-//calculate
-//var myDate = new Date("Dec 1, 2021 06:07:43")
-function submit(){
+//Submit onclick function 
+async function submit(){
     //console.log(document.getElementById('datetime').value);
     
     //fetch value inserted by user
@@ -96,7 +105,6 @@ function submit(){
     var timeReq = checkDate(myDate);
     //console.log(timeReq);
 
-    var result;
     if(timeReq>=0 && timeReq>=60){
         // generate datetime date 
         var DateArray= [];
@@ -116,7 +124,18 @@ function submit(){
         
         //fetch time location of the ISS
         let params_time = timestampArr.join(); //return array as string
-        result = get_ISS(params_time);
+        result = await get_ISS(params_time);
+        console.log(result);
+
+        //trim data 
+        result.forEach(function(obj){
+            console.log(obj.timestamp);
+            console.log(convertToHuman(obj.timestamp));
+            var timestamp = obj.timestamp;
+            var latitude = obj.latitude;
+            var longitude = obj.longitude;
+        })
+
 
     }else{
         alert("Please Enter Time less than 1 hour ago")
@@ -124,5 +143,4 @@ function submit(){
 
 }
 
-// 2. Fetch current weather (OpenWeatherMap API)
 
