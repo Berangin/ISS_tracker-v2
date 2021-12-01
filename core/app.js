@@ -94,6 +94,20 @@ async function get_ISS(timestamp){
     return data;
 };
 
+//2. OpenWeather API request
+async function getCurrentWeather(obj){
+    var latitude = obj["lat"];
+    var longitude = obj["lon"];
+    
+    var url = new URL("https://api.openweathermap.org/data/2.5/onecall"),
+    params = {lat:latitude,lon:longitude,exlude:'daily,hourly,minutely',appid:'155d897fa33703a3ed7eb587b44cf10e'}
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+   
+    let response = await fetch(url);
+    let data = response.json();
+    return data;
+}
+
 //Submit onclick function 
 async function submit(){
     //console.log(document.getElementById('datetime').value);
@@ -129,18 +143,27 @@ async function submit(){
 
         //trim data 
         result.forEach(function(obj){
-            console.log(obj.timestamp);
-            console.log(convertToHuman(obj.timestamp));
-            var timestamp = obj.timestamp;
-            var latitude = obj.latitude;
-            var longitude = obj.longitude;
+            var resultObj={};
+            //console.log(obj.timestamp);
+            //console.log(convertToHuman(obj.timestamp));
+            resultObj["timestamp"] = obj.timestamp;
+            resultObj["lat"] = obj.latitude;
+            resultObj["lon"] = obj.longitude;
+            //console.log(dataObj)
+            
+            resultTrimmed.push(resultObj);
+            console.log(resultTrimmed)
         })
+        var weather = await getCurrentWeather(resultTrimmed[0]);
+        console.log(weather);
 
-
+        
     }else{
         alert("Please Enter Time less than 1 hour ago")
     }
 
+
 }
+
 
 
