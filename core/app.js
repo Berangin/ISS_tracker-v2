@@ -231,7 +231,7 @@ function display(resultTrimmed){
             weatherData = resultTrimmed[i]['weather'];
             console.log(weatherData);
             var temp = weatherData['current']['temp']
-            var humidity = weatherData['current']['temp'];
+            var humidity = weatherData['current']['humidity'];
             var sunrise = weatherData['current']['sunrise']
             var sunset = weatherData['current']['sunset']
 
@@ -240,19 +240,20 @@ function display(resultTrimmed){
             weather.appendChild(document.createElement("br"));
             weather.appendChild(document.createElement("br"));
 
-            var humidityText = document.createTextNode(`Humidity : ${temp}`);
+            var humidityText = document.createTextNode(`Humidity : ${humidity}`);
             weather.appendChild(humidityText);
             weather.appendChild(document.createElement("br"));
             weather.appendChild(document.createElement("br"));
 
-            var sunriseText = document.createTextNode(`Humidity : ${temp}`);
-            weather.appendChild(humidityText);
+            var sunriseHumanDate = convertToHuman(sunrise)
+            var sunriseText = document.createTextNode(`Sunrise : ${sunriseHumanDate}`);
+            weather.appendChild(sunriseText);
             weather.appendChild(document.createElement("br"));
             weather.appendChild(document.createElement("br"));
            
-
-            var humidityText = document.createTextNode(`Humidity : ${temp}`);
-            weather.appendChild(humidityText);
+            var sunsetHumanDate = convertToHuman(sunset)
+            var sunsetText = document.createTextNode(`Sunset : ${sunsetHumanDate}`);
+            weather.appendChild(sunsetText);
             weather.appendChild(document.createElement("br"));
             weather.appendChild(document.createElement("br"));
            

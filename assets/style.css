@@ -1,14 +1,17 @@
+body{
+    background-color: darkgreen;
+}
 #header.col{
     align-content: center;
 }
 .container{
-    background-color: rgba(255,0,0,50);
+    background-color: rgba(220,220,220,20);
 }
 .col{
     padding: 10px;
     margin: 5px;
     border-radius: 5%;
-    background-color: darkgray;
+    border-style: dotted;
 }
 
 .col .containD{
