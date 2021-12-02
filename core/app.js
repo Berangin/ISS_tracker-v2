@@ -74,7 +74,7 @@ function convertToEpoch(date){
 //convert timestamp to Human
 function convertToHuman(timestamp){
     var myDate = new Date(timestamp*1000);
-    return myDate.toLocaleString();
+    return myDate.toString();
 }
 
 //API request
@@ -100,7 +100,7 @@ async function getCurrentWeather(obj){
     var longitude = obj["lon"];
     
     var url = new URL("https://api.openweathermap.org/data/2.5/onecall"),
-    params = {lat:latitude,lon:longitude,exclude:"daily,hourly,minutely",appid:'155d897fa33703a3ed7eb587b44cf10e'}
+    params = {lat:latitude,lon:longitude,exclude:"daily,hourly,minutely",appid:'ee21432e35baca622339c5469f528e00'}
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
    
     let response = await fetch(url);
@@ -162,10 +162,107 @@ async function submit(){
         }
         
         console.log(resultTrimmed);
+        display(resultTrimmed);
+
     }else{
         alert("Please Enter Time less than 1 hour ago")
     }
 }
 
+function display(resultTrimmed){
+    $(document).ready(function(){
+        var selectedDateTimeElement = document.getElementById('selectedDateTime');
+        var timestamp = resultTrimmed[6]["timestamp"];
+        var selectedDateTime = document.createTextNode(convertToHuman(timestamp));
+
+        selectedDateTimeElement.appendChild(selectedDateTime)
 
 
+        var issDiv = document.getElementById('issDiv');
+        issDiv.className ='container';
+        var rowDiv = document.createElement('div')
+        rowDiv.className ='row';
+
+        for(i=0;i<resultTrimmed.length;i++){
+
+            //div data
+            var time = document.createElement('p');
+            var dataDiv = document.createElement('div');
+            dataDiv.id = `data${i}`;
+            dataDiv.className = 'col containD ';
+            
+
+            var timestamp = resultTrimmed[i]["timestamp"];
+            var timestampText = document.createTextNode(`Timestamps : ${timestamp}`);
+            time.appendChild(timestampText);
+            time.appendChild(document.createElement("br"));
+            time.appendChild(document.createElement("br"));
+
+            var humanDate = convertToHuman(timestamp);
+            var humanDateText = document.createTextNode(`Date : ${humanDate}`);
+            time.appendChild(humanDateText);
+            time.appendChild(document.createElement("br"));
+            time.appendChild(document.createElement("br"));
+
+            var latText = document.createTextNode(`Latitude : ${resultTrimmed[i]["lat"]}`);
+            time.appendChild(latText);
+            time.appendChild(document.createElement("br"));
+            time.appendChild(document.createElement("br"));
+
+            var lonText = document.createTextNode(`Longitude : ${resultTrimmed[i]["lon"]}`);
+            time.appendChild(lonText);
+            time.appendChild(document.createElement("br"));
+
+            dataDiv.appendChild(time);
+
+            //weather div
+            var weather = document.createElement('p');
+            var weatherDiv = document.createElement('div');
+            var weatherHeaderDiv = document.createElement('div');
+            weatherHeaderDiv.id='weatherHeader';
+            
+            var weatherHeaderText = document.createTextNode('Current Weather');
+            weather.appendChild(document.createElement("br"));
+
+            weatherHeaderDiv.appendChild(weatherHeaderText);
+            dataDiv.appendChild(weatherHeaderDiv);
+
+            var weatherData = {};
+            weatherData = resultTrimmed[i]['weather'];
+            console.log(weatherData);
+            var temp = weatherData['current']['temp']
+            var humidity = weatherData['current']['temp'];
+            var sunrise = weatherData['current']['sunrise']
+            var sunset = weatherData['current']['sunset']
+
+            var tempText = document.createTextNode(`Temperature : ${temp} ℉`);
+            weather.appendChild(tempText);
+            weather.appendChild(document.createElement("br"));
+            weather.appendChild(document.createElement("br"));
+
+            var humidityText = document.createTextNode(`Humidity : ${temp}`);
+            weather.appendChild(humidityText);
+            weather.appendChild(document.createElement("br"));
+            weather.appendChild(document.createElement("br"));
+
+            var sunriseText = document.createTextNode(`Humidity : ${temp}`);
+            weather.appendChild(humidityText);
+            weather.appendChild(document.createElement("br"));
+            weather.appendChild(document.createElement("br"));
+           
+
+            var humidityText = document.createTextNode(`Humidity : ${temp}`);
+            weather.appendChild(humidityText);
+            weather.appendChild(document.createElement("br"));
+            weather.appendChild(document.createElement("br"));
+           
+           
+            dataDiv.appendChild(weather);
+
+            //into div rows
+            rowDiv.appendChild(dataDiv);
+            issDiv.appendChild(rowDiv);
+        }
+        document.body.appendChild(issDiv);
+    })
+}

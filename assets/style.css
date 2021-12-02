@@ -1,0 +1,22 @@
+#header.col{
+    align-content: center;
+}
+.container{
+    background-color: rgba(255,0,0,50);
+}
+.col{
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5%;
+    background-color: darkgray;
+}
+
+.col .containD{
+    background-color: darkgreen;
+}
+
+#weatherHeader{
+    font-size: large;
+    border-top: dotted;
+    border-bottom: dotted;
+}
