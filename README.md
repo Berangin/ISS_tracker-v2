@@ -1,10 +1,13 @@
 # ISS_tracker-v2
  MBB NeXT
- MUHAMMAD AMIN BIN MAT ZAKRI
+
+MUHAMMAD AMIN BIN MAT ZAKRI
+-------------------------------------------------------------------------------------------------
 
 HOW TO RUN,
 1. EXPORT 
 2. RUN index.html in local server
+
 -------------------------------------------------------------------------------------------------
 
 EXTENSION A 
