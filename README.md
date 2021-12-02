@@ -1,7 +1,9 @@
 # ISS_tracker-v2
  MBB NeXT
 
-How run..
+HOW TO RUN,
+1. EXPORT 
+2. RUN index.html
 
 
 EXTENSION A 
