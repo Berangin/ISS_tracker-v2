@@ -3,7 +3,7 @@
 
 HOW TO RUN,
 1. EXPORT 
-2. RUN index.html
+2. RUN index.html in local server
 -------------------------------------------------------------------------------------------------
 
 EXTENSION A 
