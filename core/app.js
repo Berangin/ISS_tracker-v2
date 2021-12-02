@@ -114,6 +114,7 @@ async function submit(){
     
     //fetch value inserted by user
     var myDate = new Date (document.getElementById('datetime').value);
+    console.log(myDate);
 
     //check timestamp less than 1 hour, if not, run the rest of function
     var timeReq = checkDate(myDate);
@@ -169,8 +170,10 @@ async function submit(){
     }
 }
 
+//display function
 function display(resultTrimmed){
     $(document).ready(function(){
+
         var selectedDateTimeElement = document.getElementById('selectedDateTime');
         var timestamp = resultTrimmed[6]["timestamp"];
         var selectedDateTime = document.createTextNode(convertToHuman(timestamp));

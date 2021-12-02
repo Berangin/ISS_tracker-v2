@@ -11,7 +11,7 @@ body{
     padding: 10px;
     margin: 5px;
     border-radius: 5%;
-    border-style: dotted;
+    border-style: solid;
 }
 
 .col .containD{
